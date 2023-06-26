@@ -3,7 +3,6 @@ from tm_script import parse_webpage, get_data
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import os
 
 # Sort data by market value and position
 def visualize(stats):
