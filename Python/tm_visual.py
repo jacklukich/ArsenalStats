@@ -1,5 +1,5 @@
 # Visualize Transfermarkt Arsenal Squad Data
-from tm_script import parse_webpage, get_data
+from tm_scrape import parse_webpage, get_data
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
