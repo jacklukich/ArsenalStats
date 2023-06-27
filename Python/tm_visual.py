@@ -23,6 +23,9 @@ def visualize(stats):
     mf_per = mf / total
     fw_per = fw / total
 
+    # Define custom colors
+    colors = ['#EF3340', '#006400', '#FFD700', '#808080']
+
     # Create a figure and plot the pie chart
     fig, ax = plt.subplots(figsize=(8, 8))
 
@@ -31,14 +34,17 @@ def visualize(stats):
     sizes = [gk_per, df_per, mf_per, fw_per]
     explode = (0.1, 0.1, 0.1, 0.1)
     ax.pie(sizes, explode=explode, labels=labels, autopct='%.1f%%',
-           shadow=False, startangle=90)
+           colors=colors, shadow=True, startangle=90)
     ax.axis('equal')
 
-    # Set the title with increased distance from the chart
-    ax.set_title('Market Value by Position Group', pad=20)
+    # Add a legend
+    ax.legend(labels, loc='best')
 
-    # Remove the axes and ticks for a cleaner look
-    ax.axis('off')
+    # Adjust the aspect ratio
+    ax.set_aspect('equal')
+
+    # Set the title with increased distance from the chart
+    ax.set_title('Market Value by Position Group - Arsenal FC', pad=20, fontsize=16, fontweight='bold')
 
     # Display the pie chart
     plt.show()
