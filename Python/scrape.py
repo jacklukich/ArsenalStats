@@ -5,6 +5,11 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from googlesearch import search
 
+# Getting the club name from Transfermarkt URL
+def _extract_club(url):
+    parts = url.split('/')
+    return parts[-4].replace('-', ' ').title() # replace hyphens with spaces
+
 # Abbreviate position
 def _abbreviate_pos(pos):
     if pos == 'Goalkeeper':
@@ -60,6 +65,8 @@ def find_club(club):
     if not search_results:
         print(f"Club '{club}' not found on Transfermarkt.")
         return None
+    else:
+        print(f"Identified club: {_extract_club(search_results[0])}")
     
     return search_results[0]
 

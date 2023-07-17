@@ -7,5 +7,5 @@ if __name__ == '__main__':
     club_url = find_club(club)
     webpage = get_table(club_url)
     stats = get_data(webpage)
-    values = calculate(stats)
-    visualize(values)
+    values, total = calculate(stats)
+    visualize(values, total)
