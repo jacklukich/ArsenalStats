@@ -1,13 +1,12 @@
 # Python web scraping script to pull player data from transfermarkt.us
 import requests
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
 from googlesearch import search
 
 # Abbreviate position
-def abbreviate_pos(pos):
+def _abbreviate_pos(pos):
     if pos == 'Goalkeeper':
         return 'GK'
     elif pos == 'Centre-Back':
@@ -32,7 +31,7 @@ def abbreviate_pos(pos):
         return 'Unknown'
     
 # Get position group
-def get_pos_group(pos):
+def _get_pos_group(pos):
     if pos == 'GK':
         return 'Keeper'
     elif pos == 'CB' or pos == 'LB' or pos == 'RB':
@@ -45,15 +44,14 @@ def get_pos_group(pos):
         return 'Unknown'
     
 # Convert market value to proper float
-def convert_mv(mv):
+def _convert_mv(mv):
     if 'k' in mv:
         return float(mv[1:-1]) / 1000
     else:
         return float(mv[1:-1])
 
-# Gets the HTML content of the webpage
-def get_html(club):
-    # Search Google for the club name followed by 'transfermarkt'
+# Search google to find correct club page on transfermarkt
+def find_club(club):
     query = f"{club} transfermarkt"
     search_results = list(search(query, num_results=1))
 
@@ -61,21 +59,22 @@ def get_html(club):
         print(f"Club '{club}' not found on Transfermarkt.")
         return None
     
-    search_url = search_results[0]
+    return search_results[0]
 
+# Gets the main table containing player information from webpage
+def get_table(url):
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36"
     }
 
-    response = requests.get(search_url, headers=headers)
+    response = requests.get(url, headers=headers)
     soup = BeautifulSoup(response.content, "html.parser")
 
     # Find the table containing the player data
     return soup.find("table", class_="items")
 
-# Get the player data
+# Extract player data from main HTML table
 def get_data(table):
-    # print('HTML TABLE: ', table)
     data = []
     for player in table.find_all('tr')[1:]:
         player_info = player.find_all('td')[1:]
@@ -86,10 +85,10 @@ def get_data(table):
 
         # grab actual data
         name = player_info[2].find('a').text.strip()
-        position = abbreviate_pos(player_info[3].text.strip())
-        group = get_pos_group(position)
+        position = _abbreviate_pos(player_info[3].text.strip())
+        group = _get_pos_group(position)
         age = player_info[5].text.strip().split('(')[-1].strip(')')
-        market_value = convert_mv(player_info[7].text.strip())
+        market_value = _convert_mv(player_info[7].text.strip())
 
         data.append({
             'Name': name,
@@ -100,8 +99,8 @@ def get_data(table):
         })
    
     if data:
-        print('Data pulled successfully')
+        print('Data pulled successfully.')
     else:
-        print('Data pull failed')
+        print('Data pull failed.')
 
     return pd.DataFrame(data)

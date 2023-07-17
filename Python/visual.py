@@ -1,13 +1,9 @@
 # Visualize Transfermarkt Arsenal Squad Data
-from scrape import get_html, get_data
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 
-# Sort data by market value and position
-def visualize(stats):
-    print(stats) # debug
-
+# Calculate the percentage of total market value by each position
+def calculate(stats):
     # Numeric conversions
     total = pd.to_numeric(stats['Market Value']).sum()
     gk = pd.to_numeric(stats[stats['Group'] == 'Keeper']['Market Value']).sum()
@@ -15,12 +11,17 @@ def visualize(stats):
     mf = pd.to_numeric(stats[stats['Group'] == 'Midfielder']['Market Value']).sum()
     fw = pd.to_numeric(stats[stats['Group'] == 'Forward']['Market Value']).sum()
 
-    # Calculate the percentage of total market value by each position
-    gk_per = gk / total
-    df_per = df / total
-    mf_per = mf / total
-    fw_per = fw / total
+    # Add values to list
+    nums = []
+    nums.append(gk / total)
+    nums.append(df / total)
+    nums.append(mf / total)
+    nums.append(fw / total)
 
+    return nums
+
+# Visualize the data
+def visualize(nums):
     # Define custom colors
     colors = ['#EF3340', '#006400', '#FFD700', '#808080']
 
@@ -29,7 +30,7 @@ def visualize(stats):
 
     # Plot the pie chart
     labels = 'GK', 'DF', 'MF', 'FW'
-    sizes = [gk_per, df_per, mf_per, fw_per]
+    sizes = [nums[0], nums[1], nums[2], nums[3]]
     explode = (0.1, 0.1, 0.1, 0.1)
     ax.pie(sizes, explode=explode, labels=labels, autopct='%.1f%%',
            colors=colors, shadow=True, startangle=90)
@@ -46,3 +47,6 @@ def visualize(stats):
 
     # Display the pie chart
     plt.show()
+
+    # Print complete message
+    print('Visualization complete.')
