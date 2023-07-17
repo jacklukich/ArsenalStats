@@ -47,8 +47,10 @@ def _get_pos_group(pos):
 def _convert_mv(mv):
     if 'k' in mv:
         return float(mv[1:-1]) / 1000
-    else:
+    elif 'm' in mv:
         return float(mv[1:-1])
+    else:
+        return None
 
 # Search google to find correct club page on transfermarkt
 def find_club(club):
