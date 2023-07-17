@@ -13,7 +13,7 @@ def i_export(stats, club):
         response = input('Would you like to export this data to a CSV file? (y/n): ')
 
     if response == 'y':
-        print('Exporting data.')
+        print('Exporting data..')
         export_data(stats, club)
     else:
-        print('Not exporting data.')
+        print('Not exporting data..')
