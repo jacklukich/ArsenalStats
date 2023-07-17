@@ -22,7 +22,7 @@ def find_club(club):
     else:
         print(f"Identified club: {_extract_club(search_results[0])}")
     
-    return search_results[0]
+    return search_results[0], _extract_club(search_results[0])
 
 # Gets the main table containing player information from webpage
 def get_table(url):

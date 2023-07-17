@@ -1,4 +1,4 @@
-# Miscellaneous functions
+# Miscellaneous internal functions
 import pandas as pd
 
 # Abbreviate position of a player
@@ -46,7 +46,7 @@ def convert_mv(mv):
     elif 'm' in mv:
         return float(mv[1:-1]) # default (millions)
     else:
-        return None # empty case
+        return 0.0 # empty case
     
 # Calculate the percentage of total market value by each position
 def calculate_mv(stats):
