@@ -44,6 +44,9 @@ def visualize(stats):
     # Set the title with increased distance from the chart
     ax.set_title('Market Value by Position Group', pad=20, fontsize=16, fontweight='bold')
 
+    # Save figure to folder location
+    plt.savefig('C:/Users/jluki/workspace/Transfermarkt/Plot/visual.png')
+
     # Display the pie chart
     plt.show()
 
