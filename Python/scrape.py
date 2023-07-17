@@ -4,58 +4,12 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from bs4 import BeautifulSoup
 from googlesearch import search
+from utility import abbreviate_pos, get_pos_group, convert_mv
 
 # Getting the club name from Transfermarkt URL
 def _extract_club(url):
     parts = url.split('/')
     return parts[-4].replace('-', ' ').title() # replace hyphens with spaces
-
-# Abbreviate position
-def _abbreviate_pos(pos):
-    if pos == 'Goalkeeper':
-        return 'GK'
-    elif pos == 'Centre-Back':
-        return 'CB'
-    elif pos == 'Left-Back':
-        return 'LB'
-    elif pos == 'Right-Back':
-        return 'RB'
-    elif pos == 'Defensive Midfield':
-        return 'DM'
-    elif pos == 'Central Midfield':
-        return 'CM'
-    elif pos == 'Attacking Midfield':
-        return 'AM'
-    elif pos == 'Left Winger':
-        return 'LW'
-    elif pos == 'Right Winger':
-        return 'RW'
-    elif pos == 'Centre-Forward':
-        return 'CF'
-    else:
-        return 'Unknown'
-    
-# Get position group
-def _get_pos_group(pos):
-    if pos == 'GK':
-        return 'Keeper'
-    elif pos == 'CB' or pos == 'LB' or pos == 'RB':
-        return 'Defender'
-    elif pos == 'DM' or pos == 'CM' or pos == 'AM':
-        return 'Midfielder'
-    elif pos == 'LW' or pos == 'RW' or pos == 'CF':
-        return 'Forward'
-    else:
-        return 'Unknown'
-    
-# Convert market value to proper float
-def _convert_mv(mv):
-    if 'k' in mv:
-        return float(mv[1:-1]) / 1000
-    elif 'm' in mv:
-        return float(mv[1:-1])
-    else:
-        return None
 
 # Search google to find correct club page on transfermarkt
 def find_club(club):
@@ -94,10 +48,10 @@ def get_data(table):
 
         # grab actual data
         name = player_info[2].find('a').text.strip()
-        position = _abbreviate_pos(player_info[3].text.strip())
-        group = _get_pos_group(position)
+        position = abbreviate_pos(player_info[3].text.strip())
+        group = get_pos_group(position)
         age = player_info[5].text.strip().split('(')[-1].strip(')')
-        market_value = _convert_mv(player_info[7].text.strip())
+        market_value = convert_mv(player_info[7].text.strip())
 
         data.append({
             'Name': name,

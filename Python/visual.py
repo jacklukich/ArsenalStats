@@ -1,15 +1,7 @@
 # Visualize Transfermarkt Arsenal Squad Data
 import matplotlib.pyplot as plt
 import pandas as pd
-
-# Calculate total market value
-def _calc_total_mv(total):
-    if total >= 1000:
-        return f'€{total / 1000}B'
-    elif total >= 1:
-        return f'€{total}M'
-    else:
-        return f'€{total * 1000}K'
+from utility import mv_to_string
 
 # Calculate the percentage of total market value by each position
 def calculate(stats):
@@ -52,7 +44,7 @@ def visualize(nums, total):
     ax.set_aspect('equal')
 
     # Adding sub-text to display club's total market value
-    sub_text = f"Total Club Market Value: {'{:.2f}'.format(_calc_total_mv(total))}" 
+    sub_text = f"Total Club Market Value: €{mv_to_string(total)}" 
     ax.text(0.5, -0.1, sub_text, fontsize=12, ha='center', transform=ax.transAxes)
 
     # Set the title with increased distance from the chart
