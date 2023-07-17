@@ -1,4 +1,4 @@
-# Python web scraping script to pull player data from transfermarkt.us
+# Web-scraping logic
 import requests
 import matplotlib.pyplot as plt
 import pandas as pd

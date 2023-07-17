@@ -1,4 +1,4 @@
-# Utility file containing other functions
+# Miscellaneous functions
 import pandas as pd
 
 # Abbreviate position of a player
@@ -48,6 +48,24 @@ def convert_mv(mv):
     else:
         return None # empty case
     
+# Calculate the percentage of total market value by each position
+def calculate_mv(stats):
+    # Numeric conversions
+    total = pd.to_numeric(stats['Market Value']).sum()
+    gk = pd.to_numeric(stats[stats['Group'] == 'Keeper']['Market Value']).sum()
+    df = pd.to_numeric(stats[stats['Group'] == 'Defender']['Market Value']).sum()
+    mf = pd.to_numeric(stats[stats['Group'] == 'Midfielder']['Market Value']).sum()
+    fw = pd.to_numeric(stats[stats['Group'] == 'Forward']['Market Value']).sum()
+
+    # Add values to list
+    nums = []
+    nums.append(gk / total)
+    nums.append(df / total)
+    nums.append(mf / total)
+    nums.append(fw / total)
+
+    return nums, total
+
 # Calculate total market value
 def mv_to_string(total):
     if total >= 1000:
@@ -59,3 +77,7 @@ def mv_to_string(total):
     else:
         short_total = "{:.2f}".format(total*1000)
         return f'{short_total}k' # thousands
+    
+# Exporting data to CSV file
+def export_data(stats, club):
+    stats.to_csv(f'{club}_tm.csv', index=False)

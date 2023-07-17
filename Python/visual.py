@@ -1,28 +1,13 @@
-# Visualize Transfermarkt Arsenal Squad Data
+# Visualization of Data
 import matplotlib.pyplot as plt
 import pandas as pd
-from utility import mv_to_string
+from utility import calculate_mv, mv_to_string
 
-# Calculate the percentage of total market value by each position
-def calculate(stats):
-    # Numeric conversions
-    total = pd.to_numeric(stats['Market Value']).sum()
-    gk = pd.to_numeric(stats[stats['Group'] == 'Keeper']['Market Value']).sum()
-    df = pd.to_numeric(stats[stats['Group'] == 'Defender']['Market Value']).sum()
-    mf = pd.to_numeric(stats[stats['Group'] == 'Midfielder']['Market Value']).sum()
-    fw = pd.to_numeric(stats[stats['Group'] == 'Forward']['Market Value']).sum()
+# Visualize market value data
+def visualize_mv(stats):
+    # Get necessary stats
+    nums, total = calculate_mv(stats)
 
-    # Add values to list
-    nums = []
-    nums.append(gk / total)
-    nums.append(df / total)
-    nums.append(mf / total)
-    nums.append(fw / total)
-
-    return nums, total
-
-# Visualize the data
-def visualize(nums, total):
     # Define custom colors
     colors = ['#EF3340', '#006400', '#FFD700', '#808080']
 
