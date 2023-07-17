@@ -1,16 +1,14 @@
 # Visualize Transfermarkt Arsenal Squad Data
-from tm_scrape import parse_webpage, get_data
+from scrape import get_html, get_data
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
 # Sort data by market value and position
 def visualize(stats):
-    # Sort the data
-    stats = stats.sort_values(by=['Market Value'], ascending=False)
-    stats = stats.sort_values(by=['Group'])
+    print(stats) # debug
 
-    # Convert total and gk to numeric types
+    # Numeric conversions
     total = pd.to_numeric(stats['Market Value']).sum()
     gk = pd.to_numeric(stats[stats['Group'] == 'Keeper']['Market Value']).sum()
     df = pd.to_numeric(stats[stats['Group'] == 'Defender']['Market Value']).sum()
@@ -44,13 +42,14 @@ def visualize(stats):
     ax.set_aspect('equal')
 
     # Set the title with increased distance from the chart
-    ax.set_title('Market Value by Position Group - Arsenal FC', pad=20, fontsize=16, fontweight='bold')
+    ax.set_title('Market Value by Position Group', pad=20, fontsize=16, fontweight='bold')
 
     # Display the pie chart
     plt.show()
 
 # main
 if __name__ == '__main__':
-    webpage = parse_webpage()
+    club = input('Which club would you like to analyze?: ')
+    webpage = get_html(club)
     stats = get_data(webpage)
     visualize(stats)
