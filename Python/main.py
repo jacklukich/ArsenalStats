@@ -11,4 +11,4 @@ if __name__ == '__main__':
     # Visualization and exportation input sequence (refactor out later)
     get_export(stats, club)
     get_vis_mv(stats)
-    get_vis_players(stats)
+    get_vis_players(stats) # in-process

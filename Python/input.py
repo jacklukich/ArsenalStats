@@ -46,5 +46,5 @@ def get_vis_players(stats):
     if response == 'y':
         players = _find_players(stats)
         print('DEBUG: players = ', players)
-        print('Visualizing player data..')
+        print(f'Visualizing {players[0]} vs. {players[1]}..')
         visualize_players(players, stats)
