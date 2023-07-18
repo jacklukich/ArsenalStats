@@ -40,3 +40,18 @@ def visualize_mv(stats):
 
     # Print complete message
     print('Visualization complete.')
+
+
+# Visualize plyer data
+def visualize_players(players, stats):
+    # find rows for each player
+    
+    # create a figure and plot the bar chart
+
+       # add a legend
+
+       # set the title with increased distance from the chart
+
+       # display the bar chart
+
+    return None

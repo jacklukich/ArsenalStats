@@ -81,3 +81,7 @@ def mv_to_string(total):
 # Exporting data to CSV file
 def export_data(stats, club):
     stats.to_csv(f'{club}_tm.csv', index=False)
+
+def valid_response(response, stats):
+    players = response.split(',')
+    return len(players) == 2 and players[0] in stats.index and players[1] in stats.index and players[0] != players[1]

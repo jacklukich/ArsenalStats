@@ -1,13 +1,14 @@
 # Main flow of the program
-from input import i_club, i_export
+from input import get_club, get_export, get_vis_mv, get_vis_players
 from scrape import find_club, get_table, get_data
-from visual import visualize_mv
 
 # main
 if __name__ == '__main__':
-    club = i_club()
+    club = get_club()
     club_url, club = find_club(club)
     webpage = get_table(club_url)
     stats = get_data(webpage)
-    i_export(stats, club)
-    visualize_mv(stats)
+    # Visualization and exportation input sequence (refactor out later)
+    get_export(stats, club)
+    get_vis_mv(stats)
+    get_vis_players(stats)
