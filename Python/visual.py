@@ -44,7 +44,7 @@ def visualize_mv(stats):
 
 # Visualize plyer data
 def visualize_players(players, stats):
-    # find rows for each player
+    # pull stats for each player
     
     # create a figure and plot the bar chart
 
