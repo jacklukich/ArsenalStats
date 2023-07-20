@@ -1,9 +1,10 @@
-# Web-scraping and Data Visualization for Transfermarkt
-This repository consists of scripts for extracting and visualizing Transfermarkt data for your favoirte football club.
+# Transfermarkt Data Visualization Application
+This repository consists of scripts for the application to extract and visualize Transfermarkt data for your favoirte football club.
 
 ### Technologies Used
 - Microsoft Visual Studio Code
 - Python (MatplotLib, Pandas, Google)
+- HTML, CSS, JavaScript
 - Transfermarkt Website
 
 ### Current Functionality
@@ -12,6 +13,5 @@ This repository consists of scripts for extracting and visualizing Transfermarkt
 
 ### In-process Functionality
 - Comparing two player's data (market value, age, positions)
+- Building interactive application on front-end
 
-### Future Hopes
-- TBD
