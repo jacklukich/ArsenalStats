@@ -1,0 +1,10 @@
+/* Styling for Transfermarkt Application */
+
+body {
+    background-color: lightblue;
+}
+
+.introduction {
+    text-align: center;
+    color: darkblue;
+}
